@@ -28,6 +28,7 @@ router.post('/add',function(req,res){
 
                 connection.query('SELECT * FROM user',function(err,rows){
                     if(err) throw err;
+			connection.release();
                     res.send('注册成功')
                 })
 
@@ -45,6 +46,7 @@ router.post('/login',function(req,res){
 		if(err) throw err;
     connection.query(`SELECT * FROM user WHERE user='${user}' AND pass='${pass}'`,function(err,rows){
         if(err) throw err;
+	    connection.release();
         if(rows.length == 0){
             res.send('账号或者密码错误')
         }else{
