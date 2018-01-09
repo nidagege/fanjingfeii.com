@@ -29,13 +29,15 @@ router.post('/add',function(req,res){
                 connection.query('SELECT * FROM user',function(err,rows){
                     if(err) throw err;
                     res.send('注册成功')
+	            connection.release();
                 })
 
             })
         }else {
             res.send('用户名已被注册')
-        }
 	    connection.release();
+        }
+	    
 })
     })
     })
@@ -48,11 +50,13 @@ router.post('/login',function(req,res){
         if(err) throw err;
         if(rows.length == 0){
             res.send('账号或者密码错误')
+		connection.release();
         }else{
             res.send('登录成功');
+		connection.release();
 
         }
-	     connection.release();
+	     
         })
     })
  })
